@@ -74,6 +74,15 @@ export default {
   name: 'User',
   //components: { User },
   props: { },
+  methods: {
+    getPosts() {
+      fetch('https://funblockchain.com/user1.json')
+        .then(response => response.json())
+        .then(data => this.items = data)
+    }},
+    mounted() {
+    this.getPosts()
+  },
   data() {
     return { 
 	searchField :"user",
