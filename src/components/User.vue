@@ -76,7 +76,7 @@ export default {
   props: { },
   methods: {
     getPosts() {
-      fetch('https://funblockchain.com/user1.json')
+      fetch('/user1.json')
         .then(response => response.json())
         .then(data => this.items = data)
     }},
@@ -98,76 +98,7 @@ export default {
       { text: "COUNTRY", value: "country" },
       
     ],
-        items: [
-        {
-          id: 1,
-          user: "Stephen Curry",
-          page: "https://www.nba.com/player/201939/stephen-curry",
-          avator:
-            "https://github.com/HC200ok/vue3-easy-data-table/blob/main/images/nba/Stephen.png?raw=true",
-          teamName: "GSW",
-          teamUrl: "https://www.nba.com/team/1610612744/warriors",
-          number: 30,
-          position: "Active",
-          info: {
-            height: "6-2",
-            weight: 185,
-          },
-          lastAttended: "Davidson",
-          country: "USA",
-        },
-        {
-          id: 2,
-          user: "Lebron James",
-          page: "https://www.nba.com/player/2544/lebron-james",
-          avator:
-            "https://github.com/HC200ok/vue3-easy-data-table/blob/main/images/nba/lebron.png?raw=true",
-          teamName: "LAL",
-          teamUrl: "https://www.nba.com/team/1610612747/lakers",
-          number: 6,
-          position: "Active",
-          info: {
-            height: "6-9",
-            weight: 250,
-          },
-          lastAttended: "St. Vincent-St. Mary HS (OH)",
-          country: "USA",
-        },
-        {
-          id: 3,
-          user: "Kevin Durant",
-          page: "https://www.nba.com/player/201142/kevin-durant",
-          avator:
-            "https://github.com/HC200ok/vue3-easy-data-table/blob/main/images/nba/Kevin.png?raw=true",
-          teamName: "BKN",
-          teamUrl: "https://www.nba.com/team/1610612751/nets",
-          number: 7,
-          position: "Active",
-          info: {
-            height: "6-10",
-            weight: 240,
-          },
-          lastAttended: "Texas-Austin",
-          country: "USA",
-        },
-        {
-          id: 4,
-          user: "Giannis",
-          page: "https://www.nba.com/player/203507/giannis-antetokounmpo",
-          avator:
-            "https://github.com/HC200ok/vue3-easy-data-table/blob/main/images/nba/Giannis.png?raw=true",
-          teamName: "MIL",
-          teamUrl: "https://www.nba.com/team/1610612749/bucks",
-          number: 34,
-          position: "Active",
-          info: {
-            height: "6-11",
-            weight: 242,
-          },
-          lastAttended: "Filathlitikos",
-          country: "Greece",
-        },
-      ],
+        items: [ ],
 	
 	}
   }
