@@ -1,52 +1,91 @@
- 
-
 <template>
- 
-  
-  <nav class="navbar navbar-expand-md navbar-light bg-white shadow-sm">
-            <div class="container">
-                <a class="navbar-brand" href="#"></a>
-                <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="{{ __('Toggle navigation') }}">
-                    <span class="navbar-toggler-icon"></span>
-                </button>
+  <div id="app">
+    <nav class="navbar navbar-expand navbar-dark bg-dark">
+      <a href="/" class="navbar-brand">Vuejs3-sample</a>
+      <div class="navbar-nav mr-auto">
+        <!--<li class="nav-item">
+          <router-link to="/" class="nav-link">
+            <font-awesome-icon icon="home" /> Home
+          </router-link>
+        </li>
+         <li v-if="showAdminBoard" class="nav-item">
+          <router-link to="/admin" class="nav-link">Admin Board</router-link>
+        </li>
+        <li v-if="showModeratorBoard" class="nav-item">
+          <router-link to="/mod" class="nav-link">Moderator Board</router-link>
+        </li>-->
+        <li class="nav-item">
+          <router-link v-if="currentUser" to="/" class="nav-link"> <font-awesome-icon icon="user" />Home</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link v-if="currentUser" to="/user" class="nav-link"> <font-awesome-icon icon="user" />User</router-link>
+        </li>
+        <li class="nav-item">
+          <router-link v-if="currentUser" to="/chart" class="nav-link"> <font-awesome-icon icon="user" />Chart</router-link>
+        </li>
+      </div>
 
-                <div class="collapse navbar-collapse" id="navbarSupportedContent">
-                    <!-- Left Side Of Navbar -->
-                    <ul class="navbar-nav me-auto">
-                       <li class="nav-item">   <router-link to="/chart" class="nav-link">Home</router-link>    &nbsp;</li>
-                       <li class="nav-item">   <router-link to="/user" class="nav-link">Users</router-link>    &nbsp;</li>
-                       <!--<li class="nav-item">   <router-link to="/chart" class="nav-link">Chart</router-link>    &nbsp; </li>-->
-                    </ul>
+      <div v-if="!currentUser" class="navbar-nav ml-auto">
+        <!--<li class="nav-item">
+          <router-link to="/register" class="nav-link">
+            <font-awesome-icon icon="user-plus" /> Sign Up
+          </router-link>
+        </li>-->
+        <li class="nav-item">
+         <a class="nav-link"  href="/login"><font-awesome-icon icon="sign-in-alt" /> Login </a>
+          <!--<router-link to="/login" class="nav-link">
+            <font-awesome-icon icon="sign-in-alt" /> Login
+          </router-link>-->
+        </li>
+      </div>
 
-                    <!-- Right Side Of Navbar -->
-                    <ul class="navbar-nav ms-auto">
-                        <!-- Authentication Links -->
-                         
-                                <!--<li class="nav-item">
-                                    <a class="nav-link" href="{{ route('login') }}">Login</a>
-                                </li>
-                            
-                                <li class="nav-item">
-                                    <a class="nav-link" href="{{ route('register') }}">Register</a>
-                                </li>-->
-                                
-                                <li class="nav-item dropdown1">
-                                <a id="navbarDropdown" class="nav-link dropdown-toggle" href="#" role="button" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false" v-pre> Welcome, FirstName  </a>
+      <div v-if="currentUser" class="navbar-nav ml-auto">
+        <li class="nav-item">
+          <router-link to="/profile" class="nav-link">
+            <font-awesome-icon icon="user" />
+            {{ currentUser.username }}
+          </router-link>
+        </li>
+        <li class="nav-item">
+          <a class="nav-link" @click.prevent="logOut">
+            <font-awesome-icon icon="sign-out-alt" /> LogOut
+          </a>
+        </li>
+      </div>
+    </nav>
 
-                                
-                            </li>
-                          
-                    </ul>
-                </div>
-            </div>
-        </nav>
-  
-  
-  
-
-  <main>
+    <div class="container">
       <router-view />
-
-  </main>
+    </div>
+  </div>
 </template>
- 
+
+<script>
+export default {
+  computed: {
+    currentUser() {
+      return this.$store.state.auth.user;
+    },
+    showAdminBoard() {
+      if (this.currentUser && this.currentUser['roles']) {
+        return this.currentUser['roles'].includes('ROLE_ADMIN');
+      }
+
+      return false;
+    },
+    showModeratorBoard() {
+      if (this.currentUser && this.currentUser['roles']) {
+        return this.currentUser['roles'].includes('ROLE_MODERATOR');
+      }
+
+      return false;
+    }
+  },
+  methods: {
+    logOut() {
+      this.$store.dispatch('auth/logout');
+      this.$router.push('/login');
+    }
+  }
+};
+</script>
